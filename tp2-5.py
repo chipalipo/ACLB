@@ -1,6 +1,6 @@
 #  Thomas Laroche
 #  M1 SIAME
-# conding : utf-8 
+# conding : utf-8
 
 import os
 
@@ -9,6 +9,10 @@ print "1 - ecriture"
 print "2 - lecture non-destructrice"
 print "3 - lecture destructrice"
 print "exit - exit"
+
+write = open("/dev/tp1",'w+');
+readND = open("/dev/tp2",'w+');
+readD = open("/dev/tp3",'w+');
 
 
 cmd ="";

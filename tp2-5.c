@@ -1,5 +1,5 @@
- 
- 
+
+
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -64,15 +64,15 @@ static int init(void)
         printk(KERN_ALERT ">>> ERROR alloc_chrdev_region\n");
         return -EINVAL;
     }
-    
+
     /* recuperation et affichage */
     printk(KERN_ALERT "Init allocated (major, minor)=(%d,%d)\n",MAJOR(dev),MINOR(dev));
-        
+
     /* allocation des structures pour les operations */
     my_cdev = cdev_alloc();
     my_cdev->ops = &fops;
     my_cdev->owner = THIS_MODULE;
-    
+
     _superListe = NULL;
 	_liste = NULL;
     _indice = NULL;
@@ -80,7 +80,7 @@ static int init(void)
 
     /* lien entre operations et periph */
     cdev_add(my_cdev,dev,3);
-    
+
     return(0);
 }
 
@@ -106,9 +106,10 @@ static int open(struct inode *i, struct file *f){
     SuperElement *tmp,*prev,*newSE;
     int tpid = current->tgid;
 	printk(KERN_ALERT "Open called\n");
-    
+	printk(KERN_ALERT "pid : %d\n",tpid);
+
     minor = iminor(i);
-    
+
     prev = NULL;
     tmp = _superListe;
     while(tmp != NULL && _liste == NULL){
@@ -141,8 +142,8 @@ static int open(struct inode *i, struct file *f){
         //Lecture destructrice
         fops.read = readD;
         fops.write = NULL;
-    }    
-    
+    }
+
 	return 0;
 }
 
@@ -157,10 +158,10 @@ static ssize_t readD(struct file *f, char *buf, size_t size, loff_t *offset)
 	last_acces = LECTURE;
 	printk(KERN_ALERT "Read called!\n");
 
-    
+
 	if(_empty)
 		return 0;
-	
+
 	if(_liste != NULL){
 		sizeToCopy = MIN(_liste->bufSize,size);
 		tmp = _liste->next;
@@ -187,7 +188,7 @@ static ssize_t readND(struct file *f, char *buf, size_t size, loff_t *offset)
 	int sizeToCopy;
 	last_acces = LECTURE;
 	printk(KERN_ALERT "Read called!\n");
-    
+
 	if(_indice != NULL){
 		sizeToCopy = MIN(_indice->bufSize,size);
 		if(copy_to_user(buf,_indice->text,sizeToCopy)==0){
@@ -232,7 +233,7 @@ static ssize_t write(struct file *f, const char *buf, size_t size, loff_t *offse
 		}
 		tmp->next = newE;
 	}
-	return newE->bufSize;	
+	return newE->bufSize;
 }
 
 static int release(struct inode *i,struct file *f){

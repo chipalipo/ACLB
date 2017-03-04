@@ -21,10 +21,10 @@ while cmd = "exit":
     if cmd =="1":
         print "texte à ecrire"
         texte = raw_input(">>> ");
-        os.sys("echo \""texte"\" > /dev/tp1");
+        write.write("texte blablablablablablabla");
     elif cmd =="2":
-        os.sys("cat /dev/tp2");
+        print readND.read();
     elif cmd = "3":
-        os.sys("cat /dev/tp3");
+        print readD.read();
 
 print "Fin"

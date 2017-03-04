@@ -10,9 +10,9 @@ print "2 - lecture non-destructrice"
 print "3 - lecture destructrice"
 print "exit - exit"
 
-write = open("/dev/tp1",'w+');
-readND = open("/dev/tp2",'w+');
-readD = open("/dev/tp3",'w+');
+write = open("/dev/write",'w+');
+readND = open("/dev/readND",'w+');
+readD = open("/dev/readD",'w+');
 
 
 cmd ="";

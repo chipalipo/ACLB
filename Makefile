@@ -1,9 +1,6 @@
-ifneq ($(KERNELRELEASE),)
-	obj-m := tp2-1.o
-#	Hello_World_4-objs := Hello_World_4_Start.o Hello_World_4_Stop.o
-else
-	KERNEL_DIR ?= /lib/modules/$(shell uname -r)/build
-	PWD := $(shell pwd)
-default:
-	$(MAKE) -C ${KERNEL_DIR} M=$(PWD) modules
-endif
+obj-m += tp2-5.o
+all:
+	make -C /usr/src/linux-headers-3.16.0-4-686-pae M=$(PWD) modules
+
+clean:
+	make -C /usr/src/linux-headers-3.16.0-4-686-pae M=$(PWD) clean
